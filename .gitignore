@@ -1,0 +1,14 @@
+# air-project.
+
+## Gradle.
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+
+## IntelliJ.
+.idea
+*.iws
+*.iml
+*.ipr
+
+## Java.
+**/build
