@@ -1,22 +1,65 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
-    id 'org.springframework.boot' version '2.5.4'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'idea'
+    id 'base'
     id 'java'
+    id 'application'
+    id 'io.freefair.lombok' version "${plugin_lombok_version}"
+    id 'com.github.ManifestClasspath' version "${plugin_manifest_classpath_version}"
+    id 'org.springframework.boot' version "${plugin_spring_boot_version}"
+    id 'io.spring.dependency-management' version "${plugin_spring_dependency_management_version}"
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '16'
-
 repositories {
+    mavenLocal()
     mavenCentral()
+    gradlePluginPortal()
+}
+
+group "${project_group}"
+version "${project_version}"
+
+compileJava {
+    sourceCompatibility "${jdk_version_source}"
+    targetCompatibility "${jdk_version_target}"
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Main dependencies.
+    implementation('org.springframework.boot:spring-boot-starter-logging')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    // Compile dependencies.
+    compileOnly("org.jetbrains:annotations:${jetbrains_annotations_version}")
+
+    // Annotation Processor dependencies.
+    annotationProcessor("org.jetbrains:annotations:${jetbrains_annotations_version}")
+
+    // Dev dependencies.
+    developmentOnly('org.springframework.boot:spring-boot-devtools')
+
+    // Tests dependencies.
+    testImplementation('org.springframework.boot:spring-boot-starter-test') { exclude group: 'org.junit.vintage', module: 'junit-vintage-engine' }
 }
 
 test {
     useJUnitPlatform()
+
+    doFirst {
+        systemProperty 'spring.profiles.active', 'test'
+    }
+
+    testLogging {
+        events = [/*TestLogEvent.STARTED,*/ TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED]
+        exceptionFormat = TestExceptionFormat.FULL
+        showStandardStreams = true
+    }
+
+    ignoreFailures true
+}
+
+springBoot {
+    buildInfo()
 }
