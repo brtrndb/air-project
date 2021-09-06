@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Flight Plan Test
+  #  profiles:
+  #    active: test
+
+logging:
+  config: classpath:logback-test.xml

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %white(%date{ISO8601}) %highlight(%-5level) [%blue(%thread)] %yellow(%class{1.}#%method\(L%line\)): %message%n%throwable
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log everything at INFO level. -->
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+    </root>
+
+    <!-- Custom log level for application. -->
+    <logger name="tech.brtrndb.airproject.flightplan" level="DEBUG"/>
+
+    <!-- Custom log level for Spring. -->
+    <logger name="org.springframework" level="INFO"/>
+
+</configuration>

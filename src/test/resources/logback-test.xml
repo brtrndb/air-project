@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %white(%date{ISO8601}) %highlight(%-5level) [%blue(%thread)] %yellow(%class{1.}#%method\(L%line\)): %message%n%throwable
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- Log everything at INFO level. -->
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+    </root>
+
+    <!-- Custom log level for tests. -->
+    <logger name="tech.brtrndb.airproject.flightplan" level="TRACE"/>
+
+    <!-- Custom log level for Spring. -->
+    <logger name="org.springframework" level="INFO"/>
+
+    <!-- Custom log level for flyway migrations. -->
+    <logger name="org.flywaydb" level="INFO"/>
+
+    <!-- Custom log level for persistence. -->
+    <!--    <logger name="org.hibernate" level="INFO"/>-->
+    <!--    <logger name="org.hibernate.SQL" level="TRACE"/>-->
+    <!--    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>-->
+    <!--    <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="TRACE"/>-->
+
+    <!-- Custom log level for Testcontainers. -->
+    <logger name="com.github.dockerjava" level="ERROR"/>
+    <logger name="org.testcontainers" level="ERROR"/>
+
+</configuration>
