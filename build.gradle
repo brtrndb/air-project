@@ -10,6 +10,7 @@ plugins {
     id 'com.github.ManifestClasspath' version "${plugin_manifest_classpath_version}"
     id 'org.springframework.boot' version "${plugin_spring_boot_version}"
     id 'io.spring.dependency-management' version "${plugin_spring_dependency_management_version}"
+    id 'org.flywaydb.flyway' version "${plugin_flyway_version}"
 }
 
 repositories {
@@ -28,11 +29,16 @@ compileJava {
 
 dependencies {
     // Main dependencies.
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-logging')
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation("org.flywaydb:flyway-core:${plugin_flyway_version}")
 
     // Compile dependencies.
     compileOnly("org.jetbrains:annotations:${jetbrains_annotations_version}")
+
+    // Runtime dependencies.
+    runtimeOnly("org.postgresql:postgresql:${postgresql_version}")
 
     // Annotation Processor dependencies.
     annotationProcessor("org.jetbrains:annotations:${jetbrains_annotations_version}")
@@ -62,4 +68,11 @@ test {
 
 springBoot {
     buildInfo()
+}
+
+flyway {
+    url = "${flyway_db_url}"
+    user = "${flyway_db_user}"
+    password = "${flyway_db_password}"
+    schemas = ["${flyway_db_schema}"]
 }

@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Flight Plan
+  profiles:
+    active: default
+  datasource:
+    url: jdbc:postgresql://localhost:5432/airproject_db
+    username: postgres
+    password: password
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: false
+        format_sql: false
+  flyway:
+    locations: classpath:/db/migration
+    schemas: svc_flightplan
