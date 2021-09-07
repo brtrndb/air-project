@@ -27,3 +27,10 @@ spring:
 logging:
   config: classpath:logback-spring.xml
 
+app:
+  csv-files:
+    drones: csv/drones.csv
+    stores: csv/stores.csv
+    products: csv/products.csv
+    customers: csv/customers.csv
+    orders: csv/orders.csv

@@ -32,6 +32,7 @@ dependencies {
     // Main dependencies.
     implementation('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation('org.springframework.boot:spring-boot-starter-logging')
+    implementation('org.springframework.boot:spring-boot-starter-validation')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation("org.flywaydb:flyway-core:${plugin_flyway_version}")
 
@@ -43,6 +44,7 @@ dependencies {
 
     // Annotation Processor dependencies.
     annotationProcessor("org.jetbrains:annotations:${jetbrains_annotations_version}")
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 
     // Dev dependencies.
     developmentOnly('org.springframework.boot:spring-boot-devtools')

@@ -1,0 +1,4 @@
+ProductId;Name;StoreId;Quantity;StoreId;Quantity
+LMFRPRD-1;Shovel;LMFR-VA;10;LMFR-RO;1
+LMFRPRD-2;Pickaxe;LMFR-RO;3;LMFR-LE;2
+LMFRPRD-3;Rake;LMFR-LE;1;LMFR-VA;2
