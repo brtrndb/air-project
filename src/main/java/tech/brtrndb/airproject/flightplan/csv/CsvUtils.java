@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import lombok.AccessLevel;
@@ -16,6 +17,8 @@ import org.springframework.core.io.Resource;
 public final class CsvUtils {
 
     private static final CsvMapper CSV_MAPPER_DE = new CsvMapper();
+
+    private static final CsvMapper CSV_MAPPER_SER = new CsvMapper();
 
     public static <T> List<T> readCsvResource(String csvFile, Class<T> csvClass, char separator) throws IOException {
         Resource resource = new ClassPathResource(csvFile);
@@ -33,6 +36,15 @@ public final class CsvUtils {
                 .withNullValue("");
         ObjectReader reader = CSV_MAPPER_DE.readerFor(clazz).with(schema);
         return reader.<T>readValues(is).readAll();
+    }
+
+    public static ObjectWriter buildWriter(Class<?> klass, char separator) {
+        CsvSchema schema = CSV_MAPPER_SER.schemaFor(klass)
+                .withHeader()
+                .withColumnSeparator(separator)
+                .withoutQuoteChar();
+
+        return CSV_MAPPER_SER.writer(schema);
     }
 
 }
