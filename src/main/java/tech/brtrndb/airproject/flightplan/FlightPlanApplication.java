@@ -8,7 +8,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @PropertySources({
-        @PropertySource(value = "classpath:/config/application.yml", ignoreResourceNotFound = false)
+        @PropertySource(value = "classpath:/config/application.yml", ignoreResourceNotFound = false),
+        @PropertySource(value = "classpath:META-INF/build-info.properties", ignoreResourceNotFound = false)
 })
 @EnableTransactionManagement
 public class FlightPlanApplication {
