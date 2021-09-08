@@ -12,6 +12,7 @@ plugins {
     id 'org.springframework.boot' version "${plugin_spring_boot_version}"
     id 'io.spring.dependency-management' version "${plugin_spring_dependency_management_version}"
     id 'org.flywaydb.flyway' version "${plugin_flyway_version}"
+    id 'com.google.cloud.tools.jib' version "${plugin_jib_version}"
 }
 
 repositories {
@@ -89,4 +90,23 @@ flyway {
     user = "${flyway_db_user}"
     password = "${flyway_db_password}"
     schemas = ["${flyway_db_schema}"]
+}
+
+afterEvaluate {
+    jib {
+        from {
+            image "${jib_from_image}"
+        }
+
+        to {
+            image "${jib_to_image}"
+            tags = ["${project_version}" as String, 'latest']
+        }
+
+        container {
+            jvmFlags = ["-Dspring.profiles.active=${jib_spring_profile}" as String, '-Djava.security.egd=file:/dev/./urandom']
+            mainClass "${jib_main_class}"
+            creationTime "USE_CURRENT_TIMESTAMP"
+        }
+    }
 }
